@@ -77,6 +77,9 @@ func (r *Reference) SetName(n string) error {
 		id, exists := r.owner.seenRefs[n]
 		if exists {
 			if id != r.id {
+				r.id = id
+				r.name = n
+				return nil
 				return errors.New("sam: name exists")
 			}
 			return nil
@@ -94,6 +97,12 @@ func (r *Reference) AssemblyID() string {
 		return ""
 	}
 	return r.assemID
+}
+
+func (r *Reference) SetID(value int) {
+	if r != nil {
+		r.id = int32(value)
+	}
 }
 
 // Species returns the reference species.
